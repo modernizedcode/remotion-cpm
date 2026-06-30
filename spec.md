@@ -1,0 +1,2 @@
+using the @e2f6752b-555b-4db9-ab95-752506132736.jsonl file (and the sub-agents file in the folder of the same name) can you generate a remotion video of this an claude code session, that demostrates updating multiple .net repository to use central package management. Theme the backgroundusing solarized dark please.
+Keep the video true to the actual usage of claude code, and show the input being typed in, because I will use this as a b-roll for youtube content. Feel free to speed through the thinking and application process.
