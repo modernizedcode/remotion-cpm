@@ -15,10 +15,14 @@ export function parseTranscript(raw: string): ContentBlock[] {
     }
     if (!KEEP.has(entry.type)) continue;
     const content = entry.message?.content;
+    const role = entry.type === "assistant" ? "assistant" : "user";
     if (typeof content === "string") {
-      blocks.push({ type: "text", text: content });
+      blocks.push({ type: "text", text: content, role });
     } else if (Array.isArray(content)) {
-      blocks.push(...content);
+      for (const block of content) {
+        if (block.type === "text") blocks.push({ ...block, role });
+        else blocks.push(block);
+      }
     }
   }
   return blocks;
