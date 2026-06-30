@@ -17,4 +17,9 @@ describe("truncate", () => {
   it("treats empty string as a single empty line, nothing hidden", () => {
     expect(truncate("", 8)).toEqual({ lines: [""], hiddenCount: 0 });
   });
+
+  it("hides nothing when line count equals the cap (boundary)", () => {
+    const text = Array.from({ length: 8 }, (_, i) => `l${i}`).join("\n");
+    expect(truncate(text, 8)).toEqual({ lines: text.split("\n"), hiddenCount: 0 });
+  });
 });

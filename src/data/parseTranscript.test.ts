@@ -34,5 +34,6 @@ describe("parseTranscript", () => {
   it("skips malformed json lines", () => {
     const raw = ["not json", line({ type: "user", message: { content: "x" } })].join("\n");
     expect(parseTranscript(raw)).toHaveLength(1);
+    expect(parseTranscript(raw)[0]).toMatchObject({ type: "text", text: "x" });
   });
 });
