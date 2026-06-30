@@ -1,5 +1,3 @@
-export const FPS = 30;
-
 export const timing = {
   // User prompt char-by-char typing.
   framesPerChar: 0.7,

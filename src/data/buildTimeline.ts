@@ -1,6 +1,10 @@
 import type { ContentBlock, TimelineEvent } from "./types";
 import { truncate } from "./truncate";
 
+// Skill invocations inject the skill body as a user-role text block beginning with this line.
+// Detecting it lets us render skill content as dimmed context instead of a typed user prompt.
+const SKILL_INJECTION_PREFIX = "Base directory for this skill:";
+
 function resultText(content: string | Array<{ type: string; text?: string }>): string {
   if (typeof content === "string") return content;
   return content
@@ -12,7 +16,7 @@ export function buildTimeline(blocks: ContentBlock[]): TimelineEvent[] {
   const events: TimelineEvent[] = [];
   for (const block of blocks) {
     if (block.type === "text") {
-      if (block.text.startsWith("Base directory for this skill:")) {
+      if (block.text.startsWith(SKILL_INJECTION_PREFIX)) {
         const { lines, hiddenCount } = truncate(block.text);
         events.push({ kind: "context", lines, hiddenCount, startFrame: 0, durationInFrames: 0 });
       } else {

@@ -7,6 +7,10 @@ function formatInput(name: string, input: Record<string, unknown>): string {
     return String(input.file_path ?? input.path ?? "");
   if (name === "Agent") return String(input.description ?? "");
   if (name === "Skill") return String(input.skill ?? "");
+  if (name === "AskUserQuestion") {
+    const qs = input.questions as Array<{ question?: string }> | undefined;
+    return qs && qs[0]?.question ? qs[0].question : "";
+  }
   const json = JSON.stringify(input);
   return json.length > 120 ? json.slice(0, 117) + "…" : json;
 }

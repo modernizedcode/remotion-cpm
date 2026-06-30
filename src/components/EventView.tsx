@@ -10,7 +10,7 @@ import { SystemBlock } from "./SystemBlock";
 export const EventView: React.FC<{ event: TimelineEvent; frame: number }> = ({ event, frame }) => {
   switch (event.kind) {
     case "user":
-      return <UserPrompt text={event.text} startFrame={event.startFrame} frame={frame} />;
+      return <UserPrompt text={event.text} startFrame={event.startFrame} frame={frame} durationInFrames={event.durationInFrames} />;
     case "assistant":
       return <AssistantText text={event.text} startFrame={event.startFrame} frame={frame} />;
     case "thinking":
