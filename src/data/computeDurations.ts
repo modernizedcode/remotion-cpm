@@ -23,6 +23,12 @@ function rawDuration(e: TimelineEvent): number {
         timing.eventMinFrames,
         timing.eventMaxFrames,
       );
+    case "context":
+      return clamp(
+        framesForLines(e.lines.length + (e.hiddenCount > 0 ? 1 : 0)),
+        timing.eventMinFrames,
+        timing.eventMaxFrames,
+      );
   }
 }
 

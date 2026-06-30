@@ -32,4 +32,5 @@ export type TimelineEvent =
       lines: string[]; // visible lines after truncation
       hiddenCount: number; // 0 when nothing truncated
       isError: boolean;
-    } & Timed);
+    } & Timed)
+  | ({ kind: "context"; lines: string[]; hiddenCount: number } & Timed);

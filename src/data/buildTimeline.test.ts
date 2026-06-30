@@ -38,4 +38,17 @@ describe("buildTimeline", () => {
     const events = buildTimeline([{ type: "text", text: "hi", role: "assistant" }]);
     expect(events[0].kind).toBe("assistant");
   });
+
+  it("maps skill-injection text to a context event, not a user prompt", () => {
+    const long = "Base directory for this skill: X\n" + Array.from({ length: 20 }, (_, i) => `l${i}`).join("\n");
+    const events = buildTimeline([{ type: "text", text: long, role: "user" }]);
+    expect(events[0].kind).toBe("context");
+    if (events[0].kind !== "context") throw new Error("expected context");
+    expect(events[0].hiddenCount).toBeGreaterThan(0);
+  });
+
+  it("keeps a normal user text as a user event", () => {
+    const events = buildTimeline([{ type: "text", text: "find all the repos", role: "user" }]);
+    expect(events[0].kind).toBe("user");
+  });
 });

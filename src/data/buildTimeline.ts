@@ -12,8 +12,13 @@ export function buildTimeline(blocks: ContentBlock[]): TimelineEvent[] {
   const events: TimelineEvent[] = [];
   for (const block of blocks) {
     if (block.type === "text") {
-      const kind = block.role === "assistant" ? "assistant" : "user";
-      events.push({ kind, text: block.text, startFrame: 0, durationInFrames: 0 });
+      if (block.text.startsWith("Base directory for this skill:")) {
+        const { lines, hiddenCount } = truncate(block.text);
+        events.push({ kind: "context", lines, hiddenCount, startFrame: 0, durationInFrames: 0 });
+      } else {
+        const kind = block.role === "assistant" ? "assistant" : "user";
+        events.push({ kind, text: block.text, startFrame: 0, durationInFrames: 0 });
+      }
     } else if (block.type === "thinking") {
       events.push({ kind: "thinking", startFrame: 0, durationInFrames: 0 });
     } else if (block.type === "tool_use") {

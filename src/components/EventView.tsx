@@ -5,6 +5,7 @@ import { Thinking } from "./Thinking";
 import { ToolCall } from "./ToolCall";
 import { ToolResult } from "./ToolResult";
 import { TodoList } from "./TodoList";
+import { SystemBlock } from "./SystemBlock";
 
 export const EventView: React.FC<{ event: TimelineEvent; frame: number }> = ({ event, frame }) => {
   switch (event.kind) {
@@ -27,6 +28,15 @@ export const EventView: React.FC<{ event: TimelineEvent; frame: number }> = ({ e
           lines={event.lines}
           hiddenCount={event.hiddenCount}
           isError={event.isError}
+          startFrame={event.startFrame}
+          frame={frame}
+        />
+      );
+    case "context":
+      return (
+        <SystemBlock
+          lines={event.lines}
+          hiddenCount={event.hiddenCount}
           startFrame={event.startFrame}
           frame={frame}
         />
