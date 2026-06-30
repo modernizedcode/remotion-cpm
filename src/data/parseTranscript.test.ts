@@ -13,7 +13,7 @@ describe("parseTranscript", () => {
     ].join("\n");
     const blocks = parseTranscript(raw);
     expect(blocks).toHaveLength(1);
-    expect(blocks[0]).toMatchObject({ type: "text", text: "hi" });
+    expect(blocks[0]).toEqual({ type: "text", text: "hi", role: "user" });
   });
 
   it("preserves block order within an assistant turn", () => {

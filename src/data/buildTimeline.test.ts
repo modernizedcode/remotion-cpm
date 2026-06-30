@@ -33,4 +33,9 @@ describe("buildTimeline", () => {
     if (ev.kind !== "tool_result") throw new Error("expected tool_result");
     expect(ev.isError).toBe(true);
   });
+
+  it("maps an assistant-role text block to an assistant event", () => {
+    const events = buildTimeline([{ type: "text", text: "hi", role: "assistant" }]);
+    expect(events[0].kind).toBe("assistant");
+  });
 });
