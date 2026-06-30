@@ -3,3 +3,4 @@ out/
 .remotion/
 dist/
 *.log
+src/data/conversation.json
